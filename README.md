@@ -11,7 +11,7 @@ Clone this repository to your local machine:
 git clone https://github.com/JonasNeriVCG/rag_chat.git
 ```
 
-### 1. Create a Virtual Environment
+### 2. Create a Virtual Environment
 
 Create a Python virtual environment to manage the dependencies:
 
@@ -32,3 +32,11 @@ source venv/bin/activate
 ```bash
 venv\Scripts\activate
 ```
+
+### 3. Install the required dependencies from the requirements.txt file:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the `db.py` Script
