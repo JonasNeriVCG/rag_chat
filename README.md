@@ -72,9 +72,9 @@ rag_chat/
 
 ### Notes
 
-* Make sure that the PDFs you want to process are placed in the documents/ folder.
-* The database is created once using db.py and can be reused for querying with app.py.
-* You can customize the PDF processing or chat functionality by modifying the db.py or app.py scripts.
+* Make sure that the PDFs you want to process are placed in the `documents/` folder.
+* The database is created once using `db.py` and can be reused for querying with `app.py`.
+* You can customize the PDF processing or chat functionality by modifying the `db.py` or `app.py` scripts.
 
 ### License
 
