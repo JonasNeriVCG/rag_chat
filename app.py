@@ -3,13 +3,13 @@ import os
 import re
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLLM
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
-llm = Ollama(model="llama3.1")
+llm = OllamaLLM(model="llama3.1")
 
 main_prompt = ChatPromptTemplate.from_template(
     """
@@ -54,31 +54,27 @@ def extract_references_and_update_metadata(docs_and_scores):
 
     for doc, score in docs_and_scores:
         text = doc.page_content
-        references = set()  # To avoid duplicates
+        references = set() 
 
-        # Match all bracketed content
-        matches = re.findall(r'\[(.*?)\]', text)  # Captures content inside brackets
+        matches = re.findall(r'\[(.*?)\]', text)
         
         for match in matches:
-            # Split content by commas to handle mixed cases like [28,30–39]
             parts = match.split(',')
             for part in parts:
-                part = part.strip()  # Remove whitespace
-                if '–' in part or '-' in part:  # Handle ranges with different dash types
+                part = part.strip()
+                if '–' in part or '-' in part:
                     try:
-                        # Replace en-dash or em-dash with a hyphen
                         part = part.replace('–', '-').replace('—', '-')
                         start, end = map(int, part.split('-'))
-                        references.update(range(start, end + 1))  # Add range of numbers
+                        references.update(range(start, end + 1))
                     except ValueError:
-                        pass  # Skip malformed ranges
-                else:  # Handle single numbers like [28]
+                        pass
+                else:
                     try:
                         references.add(int(part))
                     except ValueError:
-                        pass  # Skip malformed numbers
+                        pass
 
-        # Add references to metadata
         doc.metadata["references"] = ", ".join(map(str, sorted(references)))
         updated_docs_and_scores.append((doc, score))
 
@@ -98,10 +94,8 @@ def ask_question(db, question, top_k=3):
     """
     docs_and_scores = db.similarity_search_with_score(question, k=top_k)
 
-    # Extract references and update metadata
     docs_and_scores = extract_references_and_update_metadata(docs_and_scores)
 
-    # Format retrieved chunks with metadata and scores
     formatted_chunks = []
     for i, (doc, score) in enumerate(docs_and_scores, start=1):
         chunk_label = f"Chunk {i} (Similarity: {score:.4f})"
@@ -116,7 +110,7 @@ def ask_question(db, question, top_k=3):
     context = "\n\n".join([doc.page_content for doc, _ in docs_and_scores])
     prompt_input = {"context": context, "input": question}
 
-    response = llm.predict(main_prompt.format_prompt(**prompt_input).to_string())
+    response = llm.invoke(main_prompt.format_prompt(**prompt_input).to_string())
     return response.strip(), "\n\n".join(formatted_chunks)
 
 def generate_response(db_name, question):
