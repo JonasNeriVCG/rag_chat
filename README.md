@@ -40,3 +40,11 @@ pip install -r requirements.txt
 ```
 
 ### 4. Run the `db.py` Script
+
+Before running the chat application, you need to process the PDFs into the FAISS database. To do this, run the `db.py` script:
+
+```bash
+python db.py
+```
+
+This will load all PDFs from the `documents/` folder, process them into a FAISS vector database, and save the resulting database as a `.faiss` file.
