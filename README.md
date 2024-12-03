@@ -67,7 +67,5 @@ rag_chat/
 ├── app.py                # Gradio app for querying the FAISS database
 ├── db.py                 # Script for processing PDFs into a FAISS database
 ├── documents/            # Folder containing PDF files to be processed
-├── requirements.txt      # List of dependencies for the project
-├── .gitignore            # Git ignore file (make sure to exclude `venv/`)
-└── .env                  # Environment variables for configuration
+└── requirements.txt      # List of dependencies for the project
 ```
