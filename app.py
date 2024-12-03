@@ -1,5 +1,6 @@
 import gradio as gr
 import os
+import re
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.llms import Ollama
@@ -37,6 +38,50 @@ def load_database(db_path):
     )
     return db
 
+import re
+
+def extract_references_and_update_metadata(docs_and_scores):
+    """
+    Extract references from chunk text and add them to the document metadata.
+
+    Args:
+        docs_and_scores (list): A list of tuples where each tuple contains a document and its similarity score.
+
+    Returns:
+        list: The updated list of documents and scores with references added to metadata.
+    """
+    updated_docs_and_scores = []
+
+    for doc, score in docs_and_scores:
+        text = doc.page_content
+        references = set()  # To avoid duplicates
+
+        # Match all bracketed content
+        matches = re.findall(r'\[(.*?)\]', text)  # Captures content within brackets
+        
+        for match in matches:
+            # Split content by commas to handle mixed cases like [5, 10-15]
+            parts = match.split(',')
+            for part in parts:
+                part = part.strip()  # Remove whitespace
+                if '-' in part:  # Handle ranges like [10-15]
+                    try:
+                        start, end = map(int, part.split('-'))
+                        references.update(range(start, end + 1))  # Add range of numbers
+                    except ValueError:
+                        pass  # Skip malformed ranges
+                else:  # Handle single numbers like [5]
+                    try:
+                        references.add(int(part))
+                    except ValueError:
+                        pass  # Skip malformed numbers
+
+        # Add references to metadata
+        doc.metadata["references"] = ", ".join(map(str, sorted(references)))
+        updated_docs_and_scores.append((doc, score))
+
+    return updated_docs_and_scores
+
 def ask_question(db, question, top_k=30):
     """
     Generate a response to a user's question based on retrieved documents.
@@ -51,6 +96,9 @@ def ask_question(db, question, top_k=30):
     """
     docs_and_scores = db.similarity_search_with_score(question, k=top_k)
 
+    # Extract references and update metadata
+    docs_and_scores = extract_references_and_update_metadata(docs_and_scores)
+
     # Format retrieved chunks with metadata and scores
     formatted_chunks = []
     for i, (doc, score) in enumerate(docs_and_scores, start=1):
@@ -60,7 +108,7 @@ def ask_question(db, question, top_k=30):
         )
         chunk_content = doc.page_content
         formatted_chunks.append(
-            f"{chunk_label}:\n{chunk_content}\n\nMetadata:\n{metadata}\n"
+            f"{chunk_label}:\n{chunk_content}\nMetadata:\n{metadata}\n"
         )
 
     context = "\n\n".join([doc.page_content for doc, _ in docs_and_scores])
