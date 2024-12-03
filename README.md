@@ -10,4 +10,25 @@ Clone this repository to your local machine:
 ```bash
 git clone https://github.com/JonasNeriVCG/rag_chat.git
 ```
-Test
+
+### 1. Create a Virtual Environment
+
+Create a Python virtual environment to manage the dependencies:
+
+```bash
+python -m venv venv
+```
+
+Activate the virtual environment:
+
+* On Linux/Mac:
+
+```bash
+source venv/bin/activate
+```
+
+* On Windows:
+
+```bash
+venv\Scripts\activate
+```
