@@ -48,3 +48,26 @@ python db.py
 ```
 
 This will load all PDFs from the `documents/` folder, process them into a FAISS vector database, and save the resulting database as a `.faiss` file.
+
+### 5. Run the `app.py` Script
+
+After the database is created, you can launch the Gradio-powered chat interface by running:
+
+```bash
+python app.py
+```
+
+This will start the app, and you can interact with it via the web interface. Select the FAISS database from the dropdown menu and ask any question related to the contents of the PDFs.
+
+### Project Structure Overview
+
+```bash
+rag_chat/
+│
+├── app.py                # Gradio app for querying the FAISS database
+├── db.py                 # Script for processing PDFs into a FAISS database
+├── documents/            # Folder containing PDF files to be processed
+├── requirements.txt      # List of dependencies for the project
+├── .gitignore            # Git ignore file (make sure to exclude `venv/`)
+└── .env                  # Environment variables for configuration
+```
