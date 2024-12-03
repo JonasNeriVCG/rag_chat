@@ -54,29 +54,26 @@ def extract_references_and_update_metadata(docs_and_scores):
 
     for doc, score in docs_and_scores:
         text = doc.page_content
-        references = set()  # To avoid duplicates
+        references = set()
 
-        # Match all bracketed content
-        matches = re.findall(r'\[(.*?)\]', text)  # Captures content within brackets
+        matches = re.findall(r'\[(.*?)\]', text)
         
         for match in matches:
-            # Split content by commas to handle mixed cases like [5, 10-15]
             parts = match.split(',')
             for part in parts:
-                part = part.strip()  # Remove whitespace
-                if '-' in part:  # Handle ranges like [10-15]
+                part = part.strip() 
+                if '-' in part: 
                     try:
                         start, end = map(int, part.split('-'))
-                        references.update(range(start, end + 1))  # Add range of numbers
+                        references.update(range(start, end + 1)) 
                     except ValueError:
-                        pass  # Skip malformed ranges
-                else:  # Handle single numbers like [5]
+                        pass  
+                else:  
                     try:
                         references.add(int(part))
                     except ValueError:
-                        pass  # Skip malformed numbers
+                        pass 
 
-        # Add references to metadata
         doc.metadata["references"] = ", ".join(map(str, sorted(references)))
         updated_docs_and_scores.append((doc, score))
 
