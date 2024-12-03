@@ -69,3 +69,13 @@ rag_chat/
 ├── documents/            # Folder containing PDF files to be processed
 └── requirements.txt      # List of dependencies for the project
 ```
+
+### Notes
+
+* Make sure that the PDFs you want to process are placed in the documents/ folder.
+* The database is created once using db.py and can be reused for querying with app.py.
+* You can customize the PDF processing or chat functionality by modifying the db.py or app.py scripts.
+
+### License
+
+This project is open-source and available under the MIT License.
