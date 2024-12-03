@@ -28,7 +28,7 @@ def process_pdfs(folder_path, db_name="combined_nomic"):
             loader = PyPDFLoader(file_path)
             docs = loader.load()
             text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000, chunk_overlap=500
+                chunk_size=2000, chunk_overlap=1000
             )
             documents = text_splitter.split_documents(docs)
             all_documents.extend(documents)
