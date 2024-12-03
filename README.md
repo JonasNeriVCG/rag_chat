@@ -8,6 +8,6 @@ This project allows you to process PDFs into a FAISS vector database and interac
 Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/yourrepository.git
+git clone https://github.com/JonasNeriVCG/rag_chat.git
 ```
 Test
