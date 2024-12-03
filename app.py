@@ -47,16 +47,21 @@ def ask_question(db, question, top_k=30):
         top_k (int): Number of top similar documents to use (default: 30).
 
     Returns:
-        tuple: A tuple containing the response and the retrieved chunks with scores.
+        tuple: A tuple containing the response and the retrieved chunks with metadata.
     """
     docs_and_scores = db.similarity_search_with_score(question, k=top_k)
 
-    # Format retrieved chunks with scores
+    # Format retrieved chunks with metadata and scores
     formatted_chunks = []
     for i, (doc, score) in enumerate(docs_and_scores, start=1):
         chunk_label = f"Chunk {i} (Similarity: {score:.4f})"
+        metadata = "\n".join(
+            [f"{key}: {value}" for key, value in doc.metadata.items()]
+        )
         chunk_content = doc.page_content
-        formatted_chunks.append(f"{chunk_label}:\n{chunk_content}")
+        formatted_chunks.append(
+            f"{chunk_label}:\n{chunk_content}\n\nMetadata:\n{metadata}\n"
+        )
 
     context = "\n\n".join([doc.page_content for doc, _ in docs_and_scores])
     prompt_input = {"context": context, "input": question}
