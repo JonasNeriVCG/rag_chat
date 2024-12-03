@@ -54,32 +54,37 @@ def extract_references_and_update_metadata(docs_and_scores):
 
     for doc, score in docs_and_scores:
         text = doc.page_content
-        references = set()
+        references = set()  # To avoid duplicates
 
-        matches = re.findall(r'\[(.*?)\]', text)
+        # Match all bracketed content
+        matches = re.findall(r'\[(.*?)\]', text)  # Captures content inside brackets
         
         for match in matches:
+            # Split content by commas to handle mixed cases like [28,30–39]
             parts = match.split(',')
             for part in parts:
-                part = part.strip() 
-                if '-' in part: 
+                part = part.strip()  # Remove whitespace
+                if '–' in part or '-' in part:  # Handle ranges with different dash types
                     try:
+                        # Replace en-dash or em-dash with a hyphen
+                        part = part.replace('–', '-').replace('—', '-')
                         start, end = map(int, part.split('-'))
-                        references.update(range(start, end + 1)) 
+                        references.update(range(start, end + 1))  # Add range of numbers
                     except ValueError:
-                        pass  
-                else:  
+                        pass  # Skip malformed ranges
+                else:  # Handle single numbers like [28]
                     try:
                         references.add(int(part))
                     except ValueError:
-                        pass 
+                        pass  # Skip malformed numbers
 
+        # Add references to metadata
         doc.metadata["references"] = ", ".join(map(str, sorted(references)))
         updated_docs_and_scores.append((doc, score))
 
     return updated_docs_and_scores
 
-def ask_question(db, question, top_k=30):
+def ask_question(db, question, top_k=3):
     """
     Generate a response to a user's question based on retrieved documents.
 
@@ -105,7 +110,7 @@ def ask_question(db, question, top_k=30):
         )
         chunk_content = doc.page_content
         formatted_chunks.append(
-            f"{chunk_label}:\n{chunk_content}\nMetadata:\n{metadata}\n"
+            f"{chunk_label}:\n\n{chunk_content}\n\nMetadata:\n{metadata}\n"
         )
 
     context = "\n\n".join([doc.page_content for doc, _ in docs_and_scores])
