@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+import pymupdf4llm
+from langchain.text_splitter import MarkdownTextSplitter
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
 
@@ -25,12 +25,12 @@ def process_pdfs(folder_path, db_name="combined_nomic"):
 
         for file_path in pdf_files:
             print(f"Loading {file_path}...")
-            loader = PyPDFLoader(file_path)
-            docs = loader.load()
-            text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=2000, chunk_overlap=1000
-            )
-            documents = text_splitter.split_documents(docs)
+            # Convert PDF to Markdown
+            md_text = pymupdf4llm.to_markdown(file_path)  # get markdown for all pages
+            
+            # Split the Markdown text
+            splitter = MarkdownTextSplitter(chunk_size=2000, chunk_overlap=1000)
+            documents = splitter.create_documents([md_text])
             all_documents.extend(documents)
 
         print("Creating the combined database...")
