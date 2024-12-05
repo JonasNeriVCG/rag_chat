@@ -22,15 +22,6 @@ main_prompt = ChatPromptTemplate.from_template(
 )
 
 def load_database(db_path):
-    """
-    Load the FAISS database and initialize the retriever.
-
-    Args:
-        db_path (str): Path to the FAISS database file.
-
-    Returns:
-        db: The FAISS database object for similarity search.
-    """
     db = FAISS.load_local(
         db_path,
         OllamaEmbeddings(model="nomic-embed-text"),
@@ -39,23 +30,11 @@ def load_database(db_path):
     return db
 
 def extract_references_and_update_metadata(docs_and_scores):
-    """
-    Extract references from chunk text and add them to the document metadata.
-
-    Args:
-        docs_and_scores (list): A list of tuples where each tuple contains a document and its similarity score.
-
-    Returns:
-        list: The updated list of documents and scores with references added to metadata.
-    """
     updated_docs_and_scores = []
-
     for doc, score in docs_and_scores:
         text = doc.page_content
         references = set() 
-
         matches = re.findall(r'\[(.*?)\]', text)
-        
         for match in matches:
             parts = match.split(',')
             for part in parts:
@@ -72,68 +51,43 @@ def extract_references_and_update_metadata(docs_and_scores):
                         references.add(int(part))
                     except ValueError:
                         pass
-
-        # Update the document only with references
         doc.metadata["references"] = ", ".join(map(str, sorted(references)))
         updated_docs_and_scores.append((doc, score))
-
     return updated_docs_and_scores
 
+def generate_stepback_question(question):
+    prompt = f"""
+    You are an expert at taking a specific question and extracting a more generic question that gets at \
+    the underlying principles needed to answer the specific question.
+    Given a specific user question about one or more of these products, write a more generic question that needs to be answered in order to answer the specific question. \
+    If you don't recognize a word or acronym to not try to rewrite it.
+    Write concise questions.: {question}"""
+    stepback_question = llm.invoke(prompt).strip()
+    return stepback_question
+
 def ask_question(db, question, top_k=30):
-    """
-    Generate a response to a user's question based on retrieved documents.
-
-    Args:
-        db: The FAISS database object for similarity search.
-        question (str): The user's question.
-        top_k (int): Number of top similar documents to use (default: 3).
-
-    Returns:
-        tuple: A tuple containing the response and the retrieved chunks with similarities and references.
-    """
-    docs_and_scores = db.similarity_search_with_score(question, k=top_k)
-
+    stepback_question = generate_stepback_question(question)
+    docs_and_scores = db.similarity_search_with_score(stepback_question, k=top_k)
     docs_and_scores = extract_references_and_update_metadata(docs_and_scores)
-
     formatted_chunks = []
-
     for i, (doc, score) in enumerate(docs_and_scores, start=1):
         chunk_content = doc.page_content
         references = doc.metadata["references"]
-        
         formatted_chunks.append(
             f"Chunk {i} (Similarity: {score:.4f}):\n\n{chunk_content}\n\nReferences: {references}"
         )
-
     context = "\n\n".join([doc.page_content for doc, _ in docs_and_scores])
     prompt_input = {"context": context, "input": question}
-
     response = llm.invoke(main_prompt.format_prompt(**prompt_input).to_string())
-    return response.strip(), "\n\n".join(formatted_chunks)
+    return response.strip(), "\n\n".join(formatted_chunks), stepback_question
 
 def generate_response(db_name, question):
-    """
-    Generate the response and retrieve the context for a Gradio interface.
-
-    Args:
-        db_name (str): The name of the FAISS database (without the extension).
-        question (str): The user's question.
-
-    Returns:
-        tuple: The response and the formatted retrieved context.
-    """
     db_path = f"{db_name}.faiss"
     db = load_database(db_path)
-    answer, formatted_context = ask_question(db, question)
-    return answer, formatted_context
+    answer, formatted_context, stepback_question = ask_question(db, question)
+    return answer, formatted_context, stepback_question
 
 def get_database_names():
-    """
-    Retrieve the names of available FAISS database files in the current directory.
-
-    Returns:
-        list: A list of database names without file extensions.
-    """
     return [os.path.splitext(f)[0] for f in os.listdir() if f.endswith(".faiss")]
 
 # Gradio interface
@@ -151,12 +105,13 @@ with gr.Blocks() as demo:
     )
     answer_output = gr.Textbox(label="Answer", interactive=False)
     context_output = gr.Textbox(label="Retrieved Context", interactive=False, lines=10)
+    stepback_output = gr.Textbox(label="Stepback Question", interactive=False)
 
     submit_button = gr.Button("Send")
     submit_button.click(
         fn=generate_response,
         inputs=[db_input, question_input],
-        outputs=[answer_output, context_output],
+        outputs=[answer_output, context_output, stepback_output],
     )
 
 demo.launch()

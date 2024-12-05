@@ -24,7 +24,7 @@ def process_pdfs(folder_path):
             md_text = pymupdf4llm.to_markdown(file_path)  # Get markdown for all pages
 
             # Split the Markdown text
-            splitter = MarkdownTextSplitter(chunk_size=2000, chunk_overlap=1000)
+            splitter = MarkdownTextSplitter(chunk_size=1000, chunk_overlap=500)
             documents = splitter.create_documents([md_text])
 
             # Append the created documents to the all_documents list
