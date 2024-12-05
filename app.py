@@ -9,7 +9,7 @@ from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
-llm = OllamaLLM(model="llama3.1", temperature=0.2)
+llm = OllamaLLM(model="llama3.1", temperature=0.3)
 
 main_prompt = ChatPromptTemplate.from_template(
     """
@@ -69,13 +69,23 @@ def ask_question(db, question, top_k=30):
     stepback_question = generate_stepback_question(question)
     docs_and_scores = db.similarity_search_with_score(stepback_question, k=top_k)
     docs_and_scores = extract_references_and_update_metadata(docs_and_scores)
+    
     formatted_chunks = []
     for i, (doc, score) in enumerate(docs_and_scores, start=1):
         chunk_content = doc.page_content
-        references = doc.metadata["references"]
-        formatted_chunks.append(
-            f"Chunk {i} (Similarity: {score:.4f}):\n\n{chunk_content}\n\nReferences: {references}"
+        references = doc.metadata.get("references", "N/A")
+        
+        # Constructing metadata info with line breaks
+        metadata_info = (
+            f"Title: {doc.metadata.get('title', 'N/A')}\n"
+            f"Author: {doc.metadata.get('author', 'N/A')}\n"
+            f"Keywords: {doc.metadata.get('keywords', 'N/A')}"
         )
+        
+        formatted_chunks.append(
+            f"Chunk {i} (Similarity: {score:.4f}):\n\n{chunk_content}\n\nMetadata:\n{metadata_info}\n\nReferences: {references}"
+        )
+    
     context = "\n\n".join([doc.page_content for doc, _ in docs_and_scores])
     prompt_input = {"context": context, "input": question}
     response = llm.invoke(main_prompt.format_prompt(**prompt_input).to_string())
