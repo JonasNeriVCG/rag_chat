@@ -9,7 +9,7 @@ from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
-llm = OllamaLLM(model="llama3.1")
+llm = OllamaLLM(model="llama3.1", temperature=0.2)
 
 main_prompt = ChatPromptTemplate.from_template(
     """
@@ -37,8 +37,6 @@ def load_database(db_path):
         allow_dangerous_deserialization=True,
     )
     return db
-
-import re
 
 def extract_references_and_update_metadata(docs_and_scores):
     """
@@ -75,36 +73,36 @@ def extract_references_and_update_metadata(docs_and_scores):
                     except ValueError:
                         pass
 
+        # Update the document only with references
         doc.metadata["references"] = ", ".join(map(str, sorted(references)))
         updated_docs_and_scores.append((doc, score))
 
     return updated_docs_and_scores
 
-def ask_question(db, question, top_k=3):
+def ask_question(db, question, top_k=30):
     """
     Generate a response to a user's question based on retrieved documents.
 
     Args:
         db: The FAISS database object for similarity search.
         question (str): The user's question.
-        top_k (int): Number of top similar documents to use (default: 30).
+        top_k (int): Number of top similar documents to use (default: 3).
 
     Returns:
-        tuple: A tuple containing the response and the retrieved chunks with metadata.
+        tuple: A tuple containing the response and the retrieved chunks with similarities and references.
     """
     docs_and_scores = db.similarity_search_with_score(question, k=top_k)
 
     docs_and_scores = extract_references_and_update_metadata(docs_and_scores)
 
     formatted_chunks = []
+
     for i, (doc, score) in enumerate(docs_and_scores, start=1):
-        chunk_label = f"Chunk {i} (Similarity: {score:.4f})"
-        metadata = "\n".join(
-            [f"{key}: {value}" for key, value in doc.metadata.items()]
-        )
         chunk_content = doc.page_content
+        references = doc.metadata["references"]
+        
         formatted_chunks.append(
-            f"{chunk_label}:\n\n{chunk_content}\n\nMetadata:\n{metadata}\n"
+            f"Chunk {i} (Similarity: {score:.4f}):\n\n{chunk_content}\n\nReferences: {references}"
         )
 
     context = "\n\n".join([doc.page_content for doc, _ in docs_and_scores])
