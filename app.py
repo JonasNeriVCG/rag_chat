@@ -9,7 +9,7 @@ from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
-llm = OllamaLLM(model="llama3.1", temperature=0.3)
+llm = OllamaLLM(model="llama3.1", temperature=0)
 
 main_prompt = ChatPromptTemplate.from_template(
     """
@@ -59,7 +59,6 @@ def generate_stepback_question(question):
     prompt = f"""
     You are an expert at taking a specific question and extracting a more generic question that gets at \
     the underlying principles needed to answer the specific question.
-    Given a specific user question about one or more of these products, write a more generic question that needs to be answered in order to answer the specific question. \
     If you don't recognize a word or acronym to not try to rewrite it.
     Write concise questions.: {question}"""
     stepback_question = llm.invoke(prompt).strip()
