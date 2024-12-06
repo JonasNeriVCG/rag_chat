@@ -13,7 +13,7 @@ load_dotenv()
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-llm = OpenAI()
+llm = OpenAI(temperature=0)
 
 main_prompt = ChatPromptTemplate.from_template(
     """
@@ -81,7 +81,7 @@ def generate_stepback_question(question):
     stepback_question = llm.invoke(prompt).strip()
     return stepback_question
 
-def ask_question(db, question, top_k=5):
+def ask_question(db, question, top_k=10):
     stepback_question = generate_stepback_question(question)
     docs_and_scores = db.similarity_search_with_score(stepback_question, k=top_k)
     docs_and_scores = extract_references_and_update_metadata(docs_and_scores)
