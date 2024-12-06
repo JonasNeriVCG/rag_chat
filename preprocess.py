@@ -5,6 +5,7 @@ import pymupdf  # PyMuPDF
 import os
 import re
 import shutil  # For copying files
+import time  # For implementing retry delays
 
 # === Utility Functions ===
 def sanitize_filename(filename):
@@ -18,7 +19,27 @@ def generate_unique_id(metadata):
     unique_id = hashlib.sha256(metadata_string.encode('utf-8')).hexdigest()
     return unique_id
 
+# === Retry Decorator ===
+def retry_request(func):
+    def wrapper(*args, **kwargs):
+        max_retries = 10
+        for attempt in range(max_retries):
+            try:
+                return func(*args, **kwargs)
+            except requests.RequestException as e:
+                print(f"Request failed (attempt {attempt + 1}/{max_retries}): {e}")
+                time.sleep(1)  # Wait 1 second before retrying
+        print("Max retries reached. Request failed.")
+        return None
+    return wrapper
+
 # === Semantic Scholar Functions ===
+@retry_request
+def fetch_with_retries(url, params=None):
+    response = requests.get(url, params=params)
+    response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+    return response.json()
+
 def get_paper_references(paper_title):
     search_url = "https://api.semanticscholar.org/graph/v1/paper/search"
     params = {
@@ -28,8 +49,7 @@ def get_paper_references(paper_title):
     }
 
     try:
-        search_response = requests.get(search_url, params=params)
-        search_data = search_response.json()
+        search_data = fetch_with_retries(search_url, params)
 
         if not search_data.get('data'):
             print(f"No paper found with title: {paper_title}")
@@ -40,8 +60,7 @@ def get_paper_references(paper_title):
         references_url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}/references"
 
         ref_params = {"fields": "title,authors,url,year,referenceCount"}
-        references_response = requests.get(references_url, params=ref_params)
-        references_data = references_response.json()
+        references_data = fetch_with_retries(references_url, params=ref_params)
 
         references = []
         for ref in references_data.get('data', []):
@@ -55,7 +74,7 @@ def get_paper_references(paper_title):
             })
         return references
 
-    except requests.RequestException as e:
+    except Exception as e:
         print(f"Error fetching references: {e}")
         return []
 
@@ -149,6 +168,11 @@ def extract_and_fetch_references(pdf_file, output_base_folder):
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
+
+    # Copy the source PDF to the output folder
+    output_pdf_path = os.path.join(output_folder, os.path.basename(pdf_file))
+    shutil.copy(pdf_file, output_pdf_path)
+    print(f"Source PDF saved to {output_pdf_path}")
 
     doc = pymupdf.open(pdf_file)
     metadata = doc.metadata
