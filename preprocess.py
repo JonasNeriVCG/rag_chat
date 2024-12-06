@@ -73,12 +73,10 @@ def extract_references_from_pdf(doc):
     references_text = ""
     start_index = None
 
-    # Iterate through pages in reverse to find references section
     for page_num in range(len(doc) - 1, -1, -1):
         page = doc.load_page(page_num)
         text = page.get_text()
 
-        # Search for references section header
         ref_match = re.search(ref_start_pattern, text, flags=re.IGNORECASE)
         if ref_match:
             header_pos = ref_match.start()
@@ -86,13 +84,11 @@ def extract_references_from_pdf(doc):
             start_index = page_num
             references_text = section_text
 
-            # Include subsequent pages
             for subsequent_page_num in range(page_num + 1, len(doc)):
                 subsequent_page = doc.load_page(subsequent_page_num)
                 references_text += subsequent_page.get_text()
             break
 
-    # Clean and normalize references
     references_list = clean_and_normalize_references(references_text)
     return references_list
 
@@ -123,6 +119,24 @@ def format_references(reference_list):
         formatted_ref = f"{i}. {ref}"
         formatted_refs.append(formatted_ref)
     return formatted_refs
+
+# === Image Extraction Function ===
+def extract_images(doc, output_folder):
+    image_counter = 0
+    for page_num in range(len(doc)):
+        page = doc.load_page(page_num)
+        images = page.get_images(full=True)
+
+        for img_index, img in enumerate(images):
+            xref = img[0]
+            base_image = doc.extract_image(xref)
+            image_bytes = base_image["image"]
+            image_filename = os.path.join(output_folder, f"image{image_counter}.png")
+
+            with open(image_filename, "wb") as img_file:
+                img_file.write(image_bytes)
+            print(f"Extracted image saved to {image_filename}")
+            image_counter += 1
 
 # === Main Extraction Function ===
 def extract_and_fetch_references(pdf_file, output_base_folder):
@@ -172,6 +186,8 @@ def extract_and_fetch_references(pdf_file, output_base_folder):
         with open(references_file_path, "w", encoding="utf-8") as ref_file:
             ref_file.write("\n\n".join(formatted_references))
         print(f"Extracted references saved to {references_file_path}")
+
+    extract_images(doc, output_folder)
 
 # === Workflow Functions ===
 def process_all_pdfs(input_folder, output_folder):
