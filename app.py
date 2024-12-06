@@ -3,13 +3,20 @@ import os
 import re
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_ollama import OllamaLLM
-from langchain_ollama import OllamaEmbeddings
+#from langchain_ollama import OllamaLLM
+#from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
+from langchain_openai import OpenAI
+from langchain_openai import OpenAIEmbeddings
+import getpass
+import os
+
 
 load_dotenv()
 
-llm = OllamaLLM(model="llama3.1", temperature=0)
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+llm = OpenAI()
 
 main_prompt = ChatPromptTemplate.from_template(
     """
@@ -24,7 +31,7 @@ main_prompt = ChatPromptTemplate.from_template(
 def load_database(db_path):
     db = FAISS.load_local(
         db_path,
-        OllamaEmbeddings(model="nomic-embed-text"),
+        OpenAIEmbeddings(model="text-embedding-3-large"),
         allow_dangerous_deserialization=True,
     )
     return db
@@ -64,7 +71,7 @@ def generate_stepback_question(question):
     stepback_question = llm.invoke(prompt).strip()
     return stepback_question
 
-def ask_question(db, question, top_k=30):
+def ask_question(db, question, top_k=5):
     stepback_question = generate_stepback_question(question)
     docs_and_scores = db.similarity_search_with_score(stepback_question, k=top_k)
     docs_and_scores = extract_references_and_update_metadata(docs_and_scores)

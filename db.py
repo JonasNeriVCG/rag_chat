@@ -7,6 +7,7 @@ from langchain.text_splitter import MarkdownTextSplitter
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.docstore.document import Document
+from langchain_openai import OpenAIEmbeddings
 
 def extract_pdf_metadata(file_path):
     """
@@ -135,7 +136,7 @@ def main():
     # Create the FAISS database
     db_path = "combined_nomic.faiss"
     db = FAISS.from_documents(
-        all_documents, OllamaEmbeddings(model="nomic-embed-text")
+        all_documents, OpenAIEmbeddings(model="text-embedding-3-large")
     )
     db.save_local(db_path)
     print(f"Database created and saved to {db_path}")
