@@ -1,16 +1,13 @@
 import gradio as gr
 import os
 import re
+import subprocess
+import sys
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
-#from langchain_ollama import OllamaLLM
-#from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAI
 from langchain_openai import OpenAIEmbeddings
-import getpass
-import os
-
 
 load_dotenv()
 
@@ -28,6 +25,19 @@ main_prompt = ChatPromptTemplate.from_template(
     """
 )
 
+def ensure_faiss_database():
+    """Ensure that at least one FAISS database is present, otherwise run preprocessing and database creation."""
+    faiss_files = [f for f in os.listdir() if f.endswith(".faiss")]
+    if not faiss_files:
+        print("No FAISS database found. Running preprocessing and database creation scripts...")
+        # Use the current Python executable explicitly
+        python_executable = sys.executable
+        subprocess.run([python_executable, "preprocess.py"], check=True)
+        subprocess.run([python_executable, "db.py"], check=True)
+        print("FAISS database created.")
+    else:
+        print("FAISS database found. Proceeding with the application.")
+
 def load_database(db_path):
     db = FAISS.load_local(
         db_path,
@@ -40,7 +50,7 @@ def extract_references_and_update_metadata(docs_and_scores):
     updated_docs_and_scores = []
     for doc, score in docs_and_scores:
         text = doc.page_content
-        references = set() 
+        references = set()
         matches = re.findall(r'\[(.*?)\]', text)
         for match in matches:
             parts = match.split(',')
@@ -105,6 +115,9 @@ def generate_response(db_name, question):
 
 def get_database_names():
     return [os.path.splitext(f)[0] for f in os.listdir() if f.endswith(".faiss")]
+
+# Ensure FAISS database is available
+ensure_faiss_database()
 
 # Gradio interface
 with gr.Blocks() as demo:
