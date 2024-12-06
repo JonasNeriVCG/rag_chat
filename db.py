@@ -98,7 +98,7 @@ def process_pdfs(folder_path):
             md_text = pymupdf4llm.to_markdown(file_path)
             
             # Split the Markdown text
-            splitter = MarkdownTextSplitter(chunk_size=1000, chunk_overlap=500)
+            splitter = MarkdownTextSplitter(chunk_size=2000, chunk_overlap=1000)
             
             # Create documents with metadata
             documents = []
