@@ -67,32 +67,95 @@ def extract_advanced_info(pdf_file, output_base_folder):
         page = doc.load_page(page_num)
         full_text = page.get_text() + full_text
 
+    # Improved references extraction
+    def clean_and_normalize_references(references_text):
+        # Remove extra whitespace and newlines
+        references_text = re.sub(r'\s+', ' ', references_text).strip()
+        
+        # Split references, handling potential multi-line references
+        reference_list = []
+        current_ref = []
+        lines = references_text.split('\n')
+        
+        for line in lines:
+            line = line.strip()
+            # Check if line looks like a new reference (starts with author or number)
+            if re.match(r'^[\[\d]+\s*[A-Z]', line) or re.match(r'^[A-Z]', line):
+                # If we have a previous reference, join and add it
+                if current_ref:
+                    reference_list.append(' '.join(current_ref))
+                    current_ref = []
+                current_ref.append(line)
+            elif line:  # Add non-empty lines to current reference
+                current_ref.append(line)
+        
+        # Add the last reference
+        if current_ref:
+            reference_list.append(' '.join(current_ref))
+        
+        return reference_list
+
+    def format_references(reference_list):
+        # Apply some basic formatting
+        formatted_refs = []
+        for i, ref in enumerate(reference_list, 1):
+            # Remove multiple spaces
+            ref = re.sub(r'\s+', ' ', ref).strip()
+            
+            # Try to separate author, year, title, etc.
+            formatted_ref = f"{i}. {ref}"
+            formatted_refs.append(formatted_ref)
+        
+        return formatted_refs
+
+    # Find references section
     ref_start_pattern = r"(References|Bibliography|Literature Cited)"
+    references_text = ""
     start_index = None
+
+    # Iterate through pages in reverse to find references section
     for page_num in range(len(doc) - 1, -1, -1):
         page = doc.load_page(page_num)
         text = page.get_text()
 
-        if re.search(ref_start_pattern, text, flags=re.IGNORECASE):
+        # Search for references section header
+        ref_match = re.search(ref_start_pattern, text, flags=re.IGNORECASE)
+        if ref_match:
+            # Find the exact index of the references section header
+            header_pos = ref_match.start()
+            
+            # Extract text from the line with "References" onwards
+            section_text = text[header_pos:]
+            
+            # Start extraction from this page
             start_index = page_num
+            references_text = section_text
+            
+            # Continue extracting subsequent pages
+            for subsequent_page_num in range(page_num + 1, len(doc)):
+                subsequent_page = doc.load_page(subsequent_page_num)
+                references_text += subsequent_page.get_text()
+            
             break
-
-    references_text = ""
-    if start_index is not None:
-        for page_num in range(start_index, len(doc)):
-            page = doc.load_page(page_num)
-            references_text += page.get_text()
 
     # Save the updated metadata with the unique identifier as the filename
     metadata_file_path = os.path.join(output_folder, f"{unique_id}.json")  # Use unique ID as the filename
     with open(metadata_file_path, "w", encoding="utf-8") as meta_file:
         json.dump(metadata, meta_file, ensure_ascii=False, indent=4)
 
-    references_file_path = os.path.join(output_folder, "references.txt")
-    with open(references_file_path, "w", encoding="utf-8") as ref_file:
-        ref_file.write(references_text)
+    # Clean and format references
+    if references_text:
+        raw_references = clean_and_normalize_references(references_text)
+        formatted_references = format_references(raw_references)
 
-    print(f"Metadata saved to {unique_id}.json and references saved to references.txt.")
+        # Save formatted references
+        references_file_path = os.path.join(output_folder, "references.txt")
+        with open(references_file_path, "w", encoding="utf-8") as ref_file:
+            ref_file.write("\n\n".join(formatted_references))
+        
+        print(f"Formatted references saved to references.txt.")
+    else:
+        print("No references section found in the document.")
 
     # Save the original PDF to the output folder
     original_pdf_filename = os.path.basename(pdf_file)
