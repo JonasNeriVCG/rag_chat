@@ -6,14 +6,14 @@ import sys
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAI
+from langchain_openai import ChatOpenAI
 from langchain_openai import OpenAIEmbeddings
 
 load_dotenv()
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-llm = OpenAI(temperature=0)
+llm = ChatOpenAI(model="gpt-4o", temperature=0)
 
 main_prompt = ChatPromptTemplate.from_template(
     """

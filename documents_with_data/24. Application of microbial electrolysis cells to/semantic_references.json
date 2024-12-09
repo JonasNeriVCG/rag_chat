@@ -1,0 +1,534 @@
+[
+    {
+        "title": "A review of the substrates used in microbial electrolysis cells (MECs) for producing sustainable and clean hydrogen gas",
+        "authors": [
+            "Abudukeremu Kadier",
+            "Yibadatihan Simayi",
+            "M. S. Kalil",
+            "P. Abdeshahian",
+            "A. Hamid"
+        ],
+        "year": 2014,
+        "url": "https://www.semanticscholar.org/paper/ab2aca3537998951fae29e73bc616f50cdff851b",
+        "referenceCount": 49
+    },
+    {
+        "title": "Solid wastes in brewing process: A review",
+        "authors": [
+            "T. Mathias",
+            "P. Mello",
+            "Eliana Flavia Camporese SÃ©rvulo"
+        ],
+        "year": 2014,
+        "url": "https://www.semanticscholar.org/paper/6cd79325633eff9a62c196df01a986fcc7e53e3a",
+        "referenceCount": 80
+    },
+    {
+        "title": "The Microbiology of Malting and Brewing",
+        "authors": [
+            "N. Bokulich",
+            "C. Bamforth"
+        ],
+        "year": 2013,
+        "url": "https://www.semanticscholar.org/paper/61507d66ee78a1998e68015498df347d7f8e9498",
+        "referenceCount": 267
+    },
+    {
+        "title": "Anaerobic co-digestion of excess brewery yeast in a granular biomass reactor to enhance the production of biomethane.",
+        "authors": [
+            "G. Zupančič",
+            "Igor Skrjanec",
+            "R. M. Logar"
+        ],
+        "year": 2012,
+        "url": "https://www.semanticscholar.org/paper/8c3b275922bf9e4870ddc45b87a6c7ff0761347b",
+        "referenceCount": 30
+    },
+    {
+        "title": "Performance of an anion exchange membrane in association with cathodic parameters in a dual chamber microbial fuel cell",
+        "authors": [
+            "Soumya Pandit",
+            "Souparno Ghosh",
+            "M. Ghangrekar",
+            "D. Das"
+        ],
+        "year": 2012,
+        "url": "https://www.semanticscholar.org/paper/037082617bc198c5742f13b584fc0e93a2864e0f",
+        "referenceCount": 31
+    },
+    {
+        "title": "The brewing industry and environmental challenges",
+        "authors": [
+            "A. Olajire"
+        ],
+        "year": 2012,
+        "url": "https://www.semanticscholar.org/paper/3558029d5fdfa9618a835107b41c901edd832854",
+        "referenceCount": 81
+    },
+    {
+        "title": "The Effect of Various Potentials on the Attachment of Saccharomyces Cerevisiae and Staphylococcus Epidermidis to Carbon Paste Electrodes.",
+        "authors": [
+            "D. Vu",
+            "M. Sýs",
+            "L. Červenka"
+        ],
+        "year": 2011,
+        "url": "https://www.semanticscholar.org/paper/d8af7a0919b987c460429b4a8e26ecf07ef37f8b",
+        "referenceCount": 18
+    },
+    {
+        "title": "Performance of a pilot-scale continuous flow microbial electrolysis cell fed winery wastewater",
+        "authors": [
+            "R. Cusick",
+            "Bill Bryan",
+            "D. Parker",
+            "M. Merrill",
+            "M. Mehanna",
+            "P. Kiely",
+            "Guangli Liu",
+            "B. Logan"
+        ],
+        "year": 2011,
+        "url": "https://www.semanticscholar.org/paper/76585fbae9d42cb5c71eba2f3834a0e648c5669e",
+        "referenceCount": 36
+    },
+    {
+        "title": "Environmental Biotechnology: Principles and Applications",
+        "authors": [
+            "M. Moo-young",
+            "W. A. Anderson",
+            "A. Chakrabarty"
+        ],
+        "year": 2010,
+        "url": "https://www.semanticscholar.org/paper/7b0b8abb33652fb07af129e67b8ce036216927ad",
+        "referenceCount": 0
+    },
+    {
+        "title": "Biohydrogen production from Tequila vinasses in an anaerobic sequencing batch reactor: effect of initial substrate concentration, temperature and hydraulic retention time.",
+        "authors": [
+            "G. Buitrón",
+            "C. Carvajal"
+        ],
+        "year": 2010,
+        "url": "https://www.semanticscholar.org/paper/0c69539bb163a4c8d1181e213aef08cfb84e32dc",
+        "referenceCount": 44
+    },
+    {
+        "title": "Anaerobic co-digestion of surplus yeast and wastewater to increase energy recovery in breweries.",
+        "authors": [
+            "K. Neira",
+            "D. Jeison"
+        ],
+        "year": 2010,
+        "url": "https://www.semanticscholar.org/paper/f133fdd0bbbf39e207b519144b32a4623a7bd0bf",
+        "referenceCount": 25
+    },
+    {
+        "title": "A review of the substrates used in microbial fuel cells (MFCs) for sustainable energy production.",
+        "authors": [
+            "D. Pant",
+            "Gilbert Van Bogaert",
+            "L. Diels",
+            "K. Vanbroekhoven"
+        ],
+        "year": 2010,
+        "url": "https://www.semanticscholar.org/paper/8ed1ad648101795fd32d162910fa07421d339c9d",
+        "referenceCount": 112
+    },
+    {
+        "title": "Electricity generation and brewery wastewater treatment from sequential anode-cathode microbial fuel cell",
+        "authors": [
+            "Qing Wen",
+            "Ying Wu",
+            "Lixin Zhao",
+            "Qian Sun",
+            "Fan-ying Kong"
+        ],
+        "year": 2010,
+        "url": "https://www.semanticscholar.org/paper/6e9352fdb3b0af1dee5d64a7db068d6e9c273cfe",
+        "referenceCount": 19
+    },
+    {
+        "title": "Syntrophic interactions among anode respiring bacteria (ARB) and Non‐ARB in a biofilm anode: electron balances",
+        "authors": [
+            "P. Parameswaran",
+            "César I. Torres",
+            "Hyung-Sool Lee",
+            "R. Krajmalnik-Brown",
+            "B. Rittmann"
+        ],
+        "year": 2009,
+        "url": "https://www.semanticscholar.org/paper/ecba72d5db6831d6867eb02616668cd84fdb2cfc",
+        "referenceCount": 54
+    },
+    {
+        "title": "Ion transport resistance in Microbial Electrolysis Cells with anion and cation exchange membranes",
+        "authors": [
+            "T. Sleutels",
+            "H. Hamelers",
+            "R. Rozendal",
+            "C. Buisman"
+        ],
+        "year": 2009,
+        "url": "https://www.semanticscholar.org/paper/030b4629c3faea0cec301ae834be8aac0372ee6c",
+        "referenceCount": 31
+    },
+    {
+        "title": "Microbial electrolysis cells for high yield hydrogen gas production from organic matter.",
+        "authors": [
+            "B. Logan",
+            "D. Call",
+            "Shaoan Cheng",
+            "H. Hamelers",
+            "T. Sleutels",
+            "A. Jeremiasse",
+            "R. Rozendal"
+        ],
+        "year": 2008,
+        "url": "https://www.semanticscholar.org/paper/32235cdfa77761f7f882a62ae54ffb167b9c97d2",
+        "referenceCount": 47
+    },
+    {
+        "title": "Proton transport inside the biofilm limits electrical current generation by anode‐respiring bacteria",
+        "authors": [
+            "César I. Torres",
+            "Andrew Kato Marcus",
+            "B. Rittmann"
+        ],
+        "year": 2008,
+        "url": "https://www.semanticscholar.org/paper/0219d6cce6cd3e30e5cf22479bc69c9898e0130d",
+        "referenceCount": 37
+    },
+    {
+        "title": "Opportunities for renewable bioenergy using microorganisms.",
+        "authors": [
+            "B. Rittmann"
+        ],
+        "year": 2008,
+        "url": "https://www.semanticscholar.org/paper/0c5e6eef7ed414116c5fb8ef81150ceabe767675",
+        "referenceCount": 37
+    },
+    {
+        "title": "Electricity generation by a baffle-chamber membraneless microbial fuel cell",
+        "authors": [
+            "Zhiqiang Hu"
+        ],
+        "year": 2008,
+        "url": "https://www.semanticscholar.org/paper/075a10f75ed6057ab505ca3080fe1161d945f583",
+        "referenceCount": 38
+    },
+    {
+        "title": "Brewery wastewater treatment using air-cathode microbial fuel cells",
+        "authors": [
+            "Yujie Feng",
+            "Xin Wang",
+            "B. Logan",
+            "He Lee"
+        ],
+        "year": 2008,
+        "url": "https://www.semanticscholar.org/paper/17a6ff0d76494259efb2dfbe7a36f161817fd501",
+        "referenceCount": 35
+    },
+    {
+        "title": "Anaerobic digestion of secondary residuals from an anaerobic bioreactor at a brewery to enhance bioenergy generation",
+        "authors": [
+            "Benjamin T. W. Bocher",
+            "Matthew T. Agler",
+            "M. Garcia",
+            "Allen R. Beers",
+            "L. T. Angenent"
+        ],
+        "year": 2008,
+        "url": "https://www.semanticscholar.org/paper/e9220ed8083980cb750f53d3ed5c89260a591d30",
+        "referenceCount": 50
+    },
+    {
+        "title": "Kinetics of consumption of fermentation products by anode-respiring bacteria",
+        "authors": [
+            "César I. Torres",
+            "Andrew Kato Marcus",
+            "B. Rittmann"
+        ],
+        "year": 2007,
+        "url": "https://www.semanticscholar.org/paper/a97a2db6c61e98698d5ee31b4214000e9620cbab",
+        "referenceCount": 29
+    },
+    {
+        "title": "Organic pollutants abatement and biodecontamination of brewery effluents by a non-thermal quenched plasma at atmospheric pressure.",
+        "authors": [
+            "A. Doubla",
+            "S. Laminsi",
+            "S. Nzali",
+            "E. Njoyim",
+            "J. Kamsu-Kom",
+            "J. Brisset"
+        ],
+        "year": 2007,
+        "url": "https://www.semanticscholar.org/paper/4e11e7c71748dbf19c77b969c2cc83b8a11817d8",
+        "referenceCount": 15
+    },
+    {
+        "title": "Graphite fiber brush anodes for increased power production in air-cathode microbial fuel cells.",
+        "authors": [
+            "B. Logan",
+            "Shaoan Cheng",
+            "Valerie J. Watson",
+            "Garett Estadt"
+        ],
+        "year": 2007,
+        "url": "https://www.semanticscholar.org/paper/f1f618abdee7fb2d1213dad4cef3bcf96d6ccb9b",
+        "referenceCount": 37
+    },
+    {
+        "title": "Production of Electricity from Proteins Using a Microbial Fuel Cell",
+        "authors": [
+            "Jenna Heilmann",
+            "B. Logan"
+        ],
+        "year": 2006,
+        "url": "https://www.semanticscholar.org/paper/af4f93a9e99f065b9ddeeed651523fbc10d41837",
+        "referenceCount": 22
+    },
+    {
+        "title": "Brewery By-Products and Effluents",
+        "authors": [
+            "N. Huige"
+        ],
+        "year": 2006,
+        "url": "https://www.semanticscholar.org/paper/e9d6844bc25ae6c596a6e158d00448358682c7c1",
+        "referenceCount": 13
+    },
+    {
+        "title": "Application of rotary microfiltration in debittering process of spent brewer's yeast.",
+        "authors": [
+            "A. Shotipruk",
+            "Pranee Kittianong",
+            "M. Suphantharika",
+            "C. Muangnapoh"
+        ],
+        "year": 2005,
+        "url": "https://www.semanticscholar.org/paper/b42aeadd991631ce44a347bf109bdc84479ff1aa",
+        "referenceCount": 15
+    },
+    {
+        "title": "Growth of Geobacter sulfurreducens under nutrient-limiting conditions in continuous culture.",
+        "authors": [
+            "A. Estéve-Núñez",
+            "Mary M. Rothermich",
+            "Manju Sharma",
+            "D. Lovley"
+        ],
+        "year": 2005,
+        "url": "https://www.semanticscholar.org/paper/e1e78287203946ae7b054764e0a9a5489eeed03a",
+        "referenceCount": 51
+    },
+    {
+        "title": "Kinetics of thermophilic, anaerobic oxidation of straight and branched chain butyrate and valerate",
+        "authors": [
+            "D. Batstone",
+            "P. F. Pind",
+            "I. Angelidaki"
+        ],
+        "year": 2003,
+        "url": "https://www.semanticscholar.org/paper/80f9ebe9682d54d77ad5778d8e8f9c9455771933",
+        "referenceCount": 28
+    },
+    {
+        "title": "고핵산 함유 Saccharomyces cerevisiae 균주를 이용한 정미성 효모 추출물의 제조",
+        "authors": [
+            "김재식",
+            "김진욱",
+            "심원",
+            "김정완",
+            "박관화",
+            "백운화"
+        ],
+        "year": 1999,
+        "url": "https://www.semanticscholar.org/paper/f43e54cefe0168e4190f95ba126a5b5be6fd1cdf",
+        "referenceCount": 0
+    },
+    {
+        "title": "Beverages",
+        "authors": [
+            "A. Varnam",
+            "J. Sutherland"
+        ],
+        "year": 1994,
+        "url": "https://www.semanticscholar.org/paper/e7f5203818414e66ad9e1717e2ff51e225c9c028",
+        "referenceCount": 0
+    },
+    {
+        "title": "Solvent treatment for β-d-galactosidase release from yeast cells",
+        "authors": [
+            "D. Fenton"
+        ],
+        "year": 1982,
+        "url": "https://www.semanticscholar.org/paper/336d15aa1e8d3b592866321f64d5d559e9f3cb98",
+        "referenceCount": 7
+    },
+    {
+        "title": "Brewer's Yeast Slurry, I. Composition as Affected by Length of Storage, Temperature, and Chemical Treatment",
+        "authors": [
+            "J. Steckley",
+            "G. Grieve",
+            "G. Macleod",
+            "E. Moran"
+        ],
+        "year": 1979,
+        "url": "https://www.semanticscholar.org/paper/4e60be4a05bfe33cc38a8ce4b8369e04477e3337",
+        "referenceCount": 8
+    },
+    {
+        "title": "Protein measurement with the Folin phenol reagent.",
+        "authors": [
+            "O. H. Lowry",
+            "N. J. Rosebrough",
+            "A. Farr",
+            "R. J. Randall"
+        ],
+        "year": 1951,
+        "url": "https://www.semanticscholar.org/paper/8ceb75144ecb846bf463e7565e6a18998ae29d1a",
+        "referenceCount": 3
+    },
+    {
+        "title": "Functional Composites and Structures",
+        "authors": [
+            "L. Asp",
+            "M. Johansson",
+            "ran Lindbergh",
+            "Johanna Xu",
+            "D. Zenkert"
+        ],
+        "year": 2019,
+        "url": "https://www.semanticscholar.org/paper/c8939d3455f925822120e14781447f7d370d0568",
+        "referenceCount": 65
+    },
+    {
+        "title": "Suppression of methanogenic activity in anaerobic granular biomass for hydrogen production",
+        "authors": [
+            "Christian E. Hernández-Mendoza",
+            "G. Buitrón"
+        ],
+        "year": 2014,
+        "url": "https://www.semanticscholar.org/paper/b8a2e23698660aef05ae14c7bcb7b62c04111919",
+        "referenceCount": 58
+    },
+    {
+        "title": "Fermentation pre-treatment of landfill leachate for enhanced electron recovery in a microbial electrolysis cell.",
+        "authors": [
+            "M. Mahmoud",
+            "P. Parameswaran",
+            "César I. Torres",
+            "B. Rittmann"
+        ],
+        "year": 2014,
+        "url": "https://www.semanticscholar.org/paper/650bca292cc4a6c47d5522d0ce473a49b2ae2f94",
+        "referenceCount": 36
+    },
+    {
+        "title": "Biotechnological Potential of Brewing Industry By-Products",
+        "authors": [
+            "S. Mussatto"
+        ],
+        "year": 2009,
+        "url": "https://www.semanticscholar.org/paper/06526f46b283310d4a19048e3370ac91d6cce1db",
+        "referenceCount": 49
+    },
+    {
+        "title": "Microbial Electrolysis Cells for High Yield Hydrogen Gas Production from Organic Matter",
+        "authors": [
+            "S. H A O A N C H E N G, † H U B E R T U",
+            "S. V. M. H A M E L E R S",
+            "É. O Z E N D"
+        ],
+        "year": 2008,
+        "url": "https://www.semanticscholar.org/paper/7b58ba56ea549df9221d393b100de061669bc553",
+        "referenceCount": 55
+    },
+    {
+        "title": "Water, wastewater and waste management in brewing industries",
+        "authors": [
+            "L. Fillaudeau",
+            "P. Blanpain-Avet",
+            "G. Daufin"
+        ],
+        "year": 2006,
+        "url": "https://www.semanticscholar.org/paper/3f41139c49184b42ede069dd6759f82c64b769c5",
+        "referenceCount": 55
+    },
+    {
+        "title": "Standard Methods for the examination of water and wastewater",
+        "authors": [
+            "Awwa",
+            "Wef"
+        ],
+        "year": 1999,
+        "url": "https://www.semanticscholar.org/paper/60fa3053f2db749a11a55755348293991c84a1a2",
+        "referenceCount": 498
+    },
+    {
+        "title": "Fundamentals of food biotechnology",
+        "authors": [
+            "B. Lee"
+        ],
+        "year": 1996,
+        "url": "https://www.semanticscholar.org/paper/15ca73140ba58c4dd3834c0e3310ce8543945e17",
+        "referenceCount": 0
+    },
+    {
+        "title": "Physiological Ecology of Methanogens",
+        "authors": [
+            "S. Zinder"
+        ],
+        "year": 1993,
+        "url": "https://www.semanticscholar.org/paper/ed7a5fe4660694f19bba4d54121a7f68225d6e77",
+        "referenceCount": 240
+    },
+    {
+        "title": "Standard methods for the examination of water and wastewater : supplement to the sixteenth edition",
+        "authors": [
+            "A. E. Greenberg",
+            "R. Trussell",
+            "L. Clesceri"
+        ],
+        "year": 1988,
+        "url": "https://www.semanticscholar.org/paper/05b458f2247f078eadab99c91baf739c8c1e741e",
+        "referenceCount": 0
+    },
+    {
+        "title": "COLORIMETRIC METHOD FOR DETER-MINATION OF SUGAR AND RELATED SUBSTANCE",
+        "authors": [
+            "M. Dubois",
+            "K. Gilles",
+            "J. Hamilton",
+            "P. Rebers",
+            "F. Smith"
+        ],
+        "year": 1956,
+        "url": "https://www.semanticscholar.org/paper/4c90084da99ed7c2099fba34a2becc4b41d70ce1",
+        "referenceCount": 41
+    },
+    {
+        "title": "Yeast Technology",
+        "authors": [
+            "E. Barton-Weight"
+        ],
+        "year": 1954,
+        "url": "https://www.semanticscholar.org/paper/e46d22c4f81e2b89a147a7ce7cb5367e4a7d16f2",
+        "referenceCount": 0
+    },
+    {
+        "title": "Preparation of flavor - enhancing yeast extract using a Saccharomyces cerevisiae strain with high RNA content",
+        "authors": [],
+        "year": 1999,
+        "url": null,
+        "referenceCount": null
+    },
+    {
+        "title": "Autolysis of Baker 's Yeast",
+        "authors": [],
+        "year": 1952,
+        "url": null,
+        "referenceCount": null
+    }
+]
