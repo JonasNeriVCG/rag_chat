@@ -22,13 +22,13 @@ def generate_unique_id(metadata):
 # === Retry Decorator ===
 def retry_request(func):
     def wrapper(*args, **kwargs):
-        max_retries = 10
+        max_retries = 60
         for attempt in range(max_retries):
             try:
                 return func(*args, **kwargs)
             except requests.RequestException as e:
                 print(f"Request failed (attempt {attempt + 1}/{max_retries}): {e}")
-                time.sleep(1)  # Wait 1 second before retrying
+                time.sleep(2)  # Wait 1 second before retrying
         print("Max retries reached. Request failed.")
         return None
     return wrapper
@@ -225,7 +225,7 @@ def process_all_pdfs(input_folder, output_folder):
             extract_and_fetch_references(pdf_file_path, output_folder)
 
 # Example Usage
-input_folder = r'C:\Users\Usuario\Desktop\rag_chat\documents'
-output_folder = r'C:\Users\Usuario\Desktop\rag_chat\documents_with_data'
+input_folder = os.getenv("input_folder")
+output_folder = os.getenv("output_folder")
 
 process_all_pdfs(input_folder, output_folder)

@@ -134,7 +134,7 @@ def main():
         return
     
     # Create the FAISS database
-    db_path = "combined_nomic.faiss"
+    db_path = "database.faiss"
     db = FAISS.from_documents(
         all_documents, OpenAIEmbeddings(model="text-embedding-3-large")
     )
